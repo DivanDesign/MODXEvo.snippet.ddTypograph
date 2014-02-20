@@ -1,7 +1,7 @@
 <?php
 /**
  * ddTypograph.php
- * @version 1.4.2 (2013-04-05)
+ * @version 1.4.3 (2013-05-28)
  * 
  * @desc Snippet for text typography.
  * 
@@ -11,7 +11,7 @@
  * @param $disableTof {comma separated string} - Tofs to disable. Default: ''.
  * @param $disableBaseParam {separated string} - Base-params of tofs to disable. Format: 'tof1::param1,param2||tof2::param1||etc'. Default: 'etc::paragraphs,auto_links,email,optical_alignment||quote::optical_alignment'.
  * 
- * @link http://code.divandesign.biz/modx/ddtypograph/1.4.2
+ * @link http://code.divandesign.biz/modx/ddtypograph/1.4.3
  * 
  * @copyright 2013, DivanDesign
  * http://www.DivanDesign.biz
@@ -39,7 +39,6 @@ if (strlen($text) > 4){
 	
 	foreach ($mas as $val){
 		$val = explode('::', $val);
-		$disableBaseParam[$val[0]] = explode(',', $val[1]);
 		$jareTypo->getTof($val[0])->disableBaseParam(explode(',', $val[1]));
 	}
 	
