@@ -1,24 +1,27 @@
 <?php
 /**
  * ddTypograph.php
- * @version 1.4 (2010-10-10)
+ * @version 1.4.1 (2013-03-06)
  * 
  * @desc Snippet for text typography.
  * 
- * @uses библиотека Jare Typograph 2.0.0.
+ * @uses Jare Typograph 2.0.0 lib (contains in archive).
  * 
  * @param $text {string} - Text for typography. @required
  * @param $disableTof {comma separated string} - Tofs to disable. Default: ''.
  * @param $disableBaseParam {separated string} - Base-params of tofs to disable. Format: 'tof1::param1,param2||tof2::param1||etc'. Default: 'etc::paragraphs,auto_links,email,optical_alignment||quote::optical_alignment'.
  * 
- * @link http://code.divandesign.biz/modx/ddtypograph/1.4
+ * @link http://code.divandesign.biz/modx/ddtypograph/1.4.1
  * 
- * @copyright 2010, DivanDesign
+ * @copyright 2013, DivanDesign
  * http://www.DivanDesign.biz
  */
 
 //Если есть что типографировать
 if (strlen($text) > 4){
+	//Заменим кавычки, вставленные через спец. символы на обычные (а то не обрабатываются в библиотеке)
+	$text = str_replace('&#34;', '"', $text);
+	
 	$disableTof = isset($disableTof) ? explode(',', $disableTof) : array();
 	$disableBaseParam = isset($disableBaseParam) ? $disableBaseParam : 'etc::paragraphs,auto_links,email,optical_alignment||quote::optical_alignment';
 	
@@ -30,9 +33,10 @@ if (strlen($text) > 4){
 	
 	//Отключаем ненужные тофы
 	foreach ($disableTof as $val){$jareTypo->getTof($val)->disableParsing(true);}
-
+	
 	//Отключаем необходимые базовые параметры
 	$mas = explode('||', $disableBaseParam);
+	
 	foreach ($mas as $val){
 		$val = explode('::', $val);
 		$disableBaseParam[$val[0]] = explode(',', $val[1]);
