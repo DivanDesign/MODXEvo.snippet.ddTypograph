@@ -1,17 +1,17 @@
 <?php
 /**
  * ddTypograph.php
- * @version 1.4.1 (2013-03-06)
+ * @version 1.4.2 (2013-04-05)
  * 
  * @desc Snippet for text typography.
  * 
- * @uses Jare Typograph 2.0.0 lib (contains in archive).
+ * @uses Jare Typograph 2.0.0_dd1 lib (contains in archive).
  * 
  * @param $text {string} - Text for typography. @required
  * @param $disableTof {comma separated string} - Tofs to disable. Default: ''.
  * @param $disableBaseParam {separated string} - Base-params of tofs to disable. Format: 'tof1::param1,param2||tof2::param1||etc'. Default: 'etc::paragraphs,auto_links,email,optical_alignment||quote::optical_alignment'.
  * 
- * @link http://code.divandesign.biz/modx/ddtypograph/1.4.1
+ * @link http://code.divandesign.biz/modx/ddtypograph/1.4.2
  * 
  * @copyright 2013, DivanDesign
  * http://www.DivanDesign.biz

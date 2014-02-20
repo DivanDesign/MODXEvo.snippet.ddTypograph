@@ -11,7 +11,7 @@ require_once 'Jare/Typograph/Param.php';
  *
  * @copyright  	Copyright (c) 2009 E.Muravjev Studio (http://emuravjev.ru)
  * @license    	http://emuravjev.ru/works/tg/eula/
- * @version 	2.0.0
+ * @version 	2.0.0_dd1
  * @author 		Arthur Rusakov <arthur@emuravjev.ru>
  * @category    Jare
  * @package 	Jare_Typograph
@@ -76,7 +76,7 @@ abstract class Jare_Typograph_Tof
 	 * @param 	string $text
 	 * @return 	void
 	 */
-	public function setStringToParse($text)
+	public function setStringToParse(&$text)
 	{
 		$this->_text = &$text;
 	}
