@@ -1,7 +1,7 @@
 <?php
 /**
  * ddTypograph.php
- * @version 2.0b (2014-02-21)
+ * @version 2.0.1b (2014-02-25)
  * 
  * @desc Snippet for text typography.
  * 
@@ -13,7 +13,7 @@
  * @param $Text_autoLinks {0; 1} - Section signs and line breaks insertion. Default: 0.
  * @param $Etc_unicodeConvert {0; 1} - Convert html entities into Unicode (— instead of &mdash; etc.). Default: 1.
  * 
- * @link http://code.divandesign.biz/modx/ddtypograph/2.0b
+ * @link http://code.divandesign.biz/modx/ddtypograph/2.0.1b
  * 
  * @copyright 2014, DivanDesign
  * http://www.DivanDesign.biz
@@ -28,7 +28,7 @@ if (strlen($text) > 4){
 	
 	if (!isset($ddTypograph)){
 		//Подключаем EMT типограф
-		require_once $modx->config['base_path'].'assets/snippets/ddtypograph/EMT.php';
+		require_once $modx->config['base_path'].'assets/snippets/ddTypograph/EMT.php';
 		
 		$ddTypograph = new EMTypograph();
 	}
