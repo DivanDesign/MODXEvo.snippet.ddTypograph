@@ -1,19 +1,20 @@
 <?php
 /**
  * ddTypograph.php
- * @version 2.0.2b (2014-03-26)
+ * @version 2.1 (2014-04-16)
  * 
  * @desc Snippet for text typography.
  * 
  * @uses EMT lib 3.2 (contains in archive).
  * 
  * @param $text {string} - Text to correct. @required
+ * @param $Nobr_hyphenNowrap {0; 1} - Nowrap option for hyphenated words. Default: 1.
  * @param $OptAlign {0; 1} - Optical alignment (hanging punctuation). Default: 0.
  * @param $Text_paragraphs {0; 1} - Section signs and line breaks insertion. Default: 0.
- * @param $Text_autoLinks {0; 1} - Section signs and line breaks insertion. Default: 0.
+ * @param $Text_autoLinks {0; 1} - Marking links (including email ones). Default: 0.
  * @param $Etc_unicodeConvert {0; 1} - Convert html entities into Unicode (— instead of &mdash; etc.). Default: 1.
  * 
- * @link http://code.divandesign.biz/modx/ddtypograph/2.0.2b
+ * @link http://code.divandesign.biz/modx/ddtypograph/2.1
  * 
  * @copyright 2014, DivanDesign
  * http://www.DivanDesign.biz
@@ -33,6 +34,7 @@ if (strlen($text) > 4){
 		$ddTypograph = new EMTypograph();
 	}
 	
+	$Nobr_hyphenNowrap = isset($Nobr_hyphenNowrap) && $Nobr_hyphenNowrap == 0 ? 'off' : 'on';
 	$OptAlign = isset($OptAlign) && $OptAlign == 1 ? 'on' : 'off';
 	$Text_paragraphs = isset($Text_paragraphs) && $Text_paragraphs == 1 ? 'on' : 'off';
 	$Text_autoLinks = isset($Text_autoLinks) && $Text_autoLinks == 1 ? 'on' : 'off';
@@ -66,7 +68,7 @@ if (strlen($text) > 4){
 		//Обрамление пятисимвольных слов разделенных дефисом в неразрывные блоки TODO: Не удалось понять, что это, как и когда работает.
 		'Nobr.hyphen_nowrap_in_small_words' => 'off',
 		//Отмена переноса слова с дефисом
-		'Nobr.hyphen_nowrap' => 'on',
+		'Nobr.hyphen_nowrap' => $Nobr_hyphenNowrap,
 		//Использовать nowrap для неразрывных конструкций TODO: Тег «nobr» невалидный, а для «word-spacing» нет значения «nowrap», нужно использовать свойство «white-space».
 		'Nobr.nowrap' => 'on',
 		
