@@ -5,7 +5,7 @@
  * 
  * @desc Snippet for text typography.
  * 
- * @uses EMT lib 3.2 (contains in archive).
+ * @uses EMT lib 3.3 (contains in archive).
  * 
  * @param $text {string} - Text to correct. @required
  * @param $Nobr_hyphenNowrap {0; 1} - Nowrap option for hyphenated words. Default: 1.
@@ -13,6 +13,7 @@
  * @param $Text_paragraphs {0; 1} - Section signs and line breaks insertion. Default: 0.
  * @param $Text_autoLinks {0; 1} - Marking links (including email ones). Default: 0.
  * @param $Etc_unicodeConvert {0; 1} - Convert html entities into Unicode (— instead of &mdash; etc.). Default: 1.
+ * @param $noTags {0; 1} - Whether HTML element insertion is allowed or not. There are cases when using tags causes the text to be invalid, for example, using the snippet inside of an HTML attribute. Default: 0.
  * 
  * @link http://code.divandesign.biz/modx/ddtypograph/2.1
  * 
@@ -34,10 +35,23 @@ if (strlen($text) > 4){
 		$ddTypograph = new EMTypograph();
 	}
 	
-	$Nobr_hyphenNowrap = isset($Nobr_hyphenNowrap) && $Nobr_hyphenNowrap == 0 ? 'off' : 'on';
-	$OptAlign = isset($OptAlign) && $OptAlign == 1 ? 'on' : 'off';
-	$Text_paragraphs = isset($Text_paragraphs) && $Text_paragraphs == 1 ? 'on' : 'off';
-	$Text_autoLinks = isset($Text_autoLinks) && $Text_autoLinks == 1 ? 'on' : 'off';
+	//Если нельзя добавлять теги к тексту
+	if (isset($noTags) && $noTags == 1){
+		$noTags = 'off';
+		
+		$Nobr_hyphenNowrap = $noTags;
+		$OptAlign = $noTags;
+		$Text_paragraphs = $noTags;
+		$Text_autoLinks = $noTags;
+	}else{
+		$noTags = 'on';
+		
+		$Nobr_hyphenNowrap = isset($Nobr_hyphenNowrap) && $Nobr_hyphenNowrap == 0 ? 'off' : 'on';
+		$OptAlign = isset($OptAlign) && $OptAlign == 1 ? 'on' : 'off';
+		$Text_paragraphs = isset($Text_paragraphs) && $Text_paragraphs == 1 ? 'on' : 'off';
+		$Text_autoLinks = isset($Text_autoLinks) && $Text_autoLinks == 1 ? 'on' : 'off';
+	}
+	
 	$Etc_unicodeConvert = isset($Etc_unicodeConvert) && $Etc_unicodeConvert == 0 ? 'off' : 'on';
 	
 	$ddTypograph->setup(array(
@@ -62,7 +76,7 @@ if (strlen($text) > 4){
 		//Объединение IP-адресов.
 		'Nobr.ip_address' => 'off',
 		//Привязка инициалов к фамилиям
-		'Nobr.spaces_nobr_in_surname_abbr' => 'on',
+		'Nobr.spaces_nobr_in_surname_abbr' => $noTags,
 		//Привязка градусов к числу TODO: Не работает (по крайней мере, не удалось увидеть работу).
 		'Nobr.nbsp_celcius' => 'on',
 		//Обрамление пятисимвольных слов разделенных дефисом в неразрывные блоки TODO: Не удалось понять, что это, как и когда работает.
@@ -138,7 +152,7 @@ if (strlen($text) > 4){
 		//Форматирование денежных сокращений (расстановка пробелов и привязка названия валюты к числу)
 		'Abbr.nbsp_money_abbr' => 'on',
 		//Объединение сокращений: и т. д., и т. п., в т. ч.
-		'Abbr.nobr_vtch_itd_itp' => 'on',
+		'Abbr.nobr_vtch_itd_itp' => $noTags,
 		//Расстановка пробелов перед сокращениями: см., им.
 		'Abbr.nobr_sm_im' => 'on',
 		//Расстановка пробелов перед сокращениями гл., стр., рис., илл., ст., п.
@@ -148,11 +162,11 @@ if (strlen($text) > 4){
 		//Расстановка пробелов перед сокращениями dpi, lpi
 		'Abbr.nobr_abbreviation' => 'on',
 		//Объединение сокращений P.S., P.P.S.
-		'Abbr.ps_pps' => 'on',
+		'Abbr.ps_pps' => $noTags,
 		//Привязка сокращений форм собственности к названиям организаций
 		'Abbr.nbsp_org_abbr' => 'on',
 		//Привязка аббревиатуры ГОСТ к номеру
-		'Abbr.nobr_gost' => 'on',
+		'Abbr.nobr_gost' => $noTags,
 		//Установка пробельных символов в сокращении вольт
 		'Abbr.nobr_before_unit_volt' => 'on',
 		//Замена символов и привязка сокращений в размерных величинах: м, см, м2, …
