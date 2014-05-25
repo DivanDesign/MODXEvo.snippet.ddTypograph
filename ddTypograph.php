@@ -1,20 +1,21 @@
 <?php
 /**
  * ddTypograph.php
- * @version 2.1 (2014-04-16)
+ * @version 2.2 (2014-05-25)
  * 
  * @desc Snippet for text typography.
  * 
- * @uses EMT lib 3.2 (contains in archive).
+ * @uses The modx.ddTools library 0.12.
+ * @uses EMT lib 3.3 (contains in archive).
  * 
  * @param $text {string} - Text to correct. @required
- * @param $Nobr_hyphenNowrap {0; 1} - Nowrap option for hyphenated words. Default: 1.
- * @param $OptAlign {0; 1} - Optical alignment (hanging punctuation). Default: 0.
- * @param $Text_paragraphs {0; 1} - Section signs and line breaks insertion. Default: 0.
- * @param $Text_autoLinks {0; 1} - Marking links (including email ones). Default: 0.
- * @param $Etc_unicodeConvert {0; 1} - Convert html entities into Unicode (— instead of &mdash; etc.). Default: 1.
+ * @param $optAlign {0; 1} - Optical alignment (hanging punctuation). Default: 0.
+ * @param $text_paragraphs {0; 1} - Section signs and line breaks insertion. Default: 0.
+ * @param $text_autoLinks {0; 1} - Marking links (including email ones). Default: 0.
+ * @param $etc_unicodeConvert {0; 1} - Convert html entities into Unicode (— instead of &mdash; etc.). Default: 1.
+ * @param $noTags {0; 1} - Whether HTML element insertion is allowed or not. There are cases when using tags causes the text to be invalid, for example, using the snippet inside of an HTML attribute. Default: 0.
  * 
- * @link http://code.divandesign.biz/modx/ddtypograph/2.1
+ * @link http://code.divandesign.biz/modx/ddtypograph/2.2
  * 
  * @copyright 2014, DivanDesign
  * http://www.DivanDesign.biz
@@ -34,11 +35,33 @@ if (strlen($text) > 4){
 		$ddTypograph = new EMTypograph();
 	}
 	
-	$Nobr_hyphenNowrap = isset($Nobr_hyphenNowrap) && $Nobr_hyphenNowrap == 0 ? 'off' : 'on';
-	$OptAlign = isset($OptAlign) && $OptAlign == 1 ? 'on' : 'off';
-	$Text_paragraphs = isset($Text_paragraphs) && $Text_paragraphs == 1 ? 'on' : 'off';
-	$Text_autoLinks = isset($Text_autoLinks) && $Text_autoLinks == 1 ? 'on' : 'off';
-	$Etc_unicodeConvert = isset($Etc_unicodeConvert) && $Etc_unicodeConvert == 0 ? 'off' : 'on';
+	//Подключаем modx.ddTools
+	require_once $modx->config['base_path'].'assets/snippets/ddTools/modx.ddtools.class.php';
+	
+	//Для обратной совместимости
+	extract(ddTools::verifyRenamedParams($params, array(
+		'optAlign' => 'OptAlign',
+		'text_paragraphs' => 'Text_paragraphs',
+		'text_autoLinks' => 'Text_autoLinks',
+		'etc_unicodeConvert' => 'Etc_unicodeConvert'
+	)));
+	
+	//Если нельзя добавлять теги к тексту
+	if (isset($noTags) && $noTags == 1){
+		$noTags = 'off';
+		
+		$optAlign = $noTags;
+		$text_paragraphs = $noTags;
+		$text_autoLinks = $noTags;
+	}else{
+		$noTags = 'on';
+		
+		$optAlign = isset($optAlign) && $optAlign == 1 ? 'on' : 'off';
+		$text_paragraphs = isset($text_paragraphs) && $text_paragraphs == 1 ? 'on' : 'off';
+		$text_autoLinks = isset($text_autoLinks) && $text_autoLinks == 1 ? 'on' : 'off';
+	}
+	
+	$etc_unicodeConvert = isset($etc_unicodeConvert) && $etc_unicodeConvert == 0 ? 'off' : 'on';
 	
 	$ddTypograph->setup(array(
 		//Расстановка «кавычек-елочек» первого уровня
@@ -62,13 +85,13 @@ if (strlen($text) > 4){
 		//Объединение IP-адресов.
 		'Nobr.ip_address' => 'off',
 		//Привязка инициалов к фамилиям
-		'Nobr.spaces_nobr_in_surname_abbr' => 'on',
+		'Nobr.spaces_nobr_in_surname_abbr' => $noTags,
 		//Привязка градусов к числу TODO: Не работает (по крайней мере, не удалось увидеть работу).
 		'Nobr.nbsp_celcius' => 'on',
 		//Обрамление пятисимвольных слов разделенных дефисом в неразрывные блоки TODO: Не удалось понять, что это, как и когда работает.
 		'Nobr.hyphen_nowrap_in_small_words' => 'off',
 		//Отмена переноса слова с дефисом
-		'Nobr.hyphen_nowrap' => $Nobr_hyphenNowrap,
+		'Nobr.hyphen_nowrap' => $noTags,
 		//Использовать nowrap для неразрывных конструкций TODO: Тег «nobr» невалидный, а для «word-spacing» нет значения «nowrap», нужно использовать свойство «white-space».
 		'Nobr.nowrap' => 'on',
 		
@@ -138,7 +161,7 @@ if (strlen($text) > 4){
 		//Форматирование денежных сокращений (расстановка пробелов и привязка названия валюты к числу)
 		'Abbr.nbsp_money_abbr' => 'on',
 		//Объединение сокращений: и т. д., и т. п., в т. ч.
-		'Abbr.nobr_vtch_itd_itp' => 'on',
+		'Abbr.nobr_vtch_itd_itp' => $noTags,
 		//Расстановка пробелов перед сокращениями: см., им.
 		'Abbr.nobr_sm_im' => 'on',
 		//Расстановка пробелов перед сокращениями гл., стр., рис., илл., ст., п.
@@ -148,11 +171,11 @@ if (strlen($text) > 4){
 		//Расстановка пробелов перед сокращениями dpi, lpi
 		'Abbr.nobr_abbreviation' => 'on',
 		//Объединение сокращений P.S., P.P.S.
-		'Abbr.ps_pps' => 'on',
+		'Abbr.ps_pps' => $noTags,
 		//Привязка сокращений форм собственности к названиям организаций
 		'Abbr.nbsp_org_abbr' => 'on',
 		//Привязка аббревиатуры ГОСТ к номеру
-		'Abbr.nobr_gost' => 'on',
+		'Abbr.nobr_gost' => $noTags,
 		//Установка пробельных символов в сокращении вольт
 		'Abbr.nobr_before_unit_volt' => 'on',
 		//Замена символов и привязка сокращений в размерных величинах: м, см, м2, …
@@ -161,29 +184,29 @@ if (strlen($text) > 4){
 		//Inline стили или CSS TODO: Разобраться, что это за параметр и какие значения он может принимать
 // 		'OptAlign.all' => 'off',
 		//Оптическое выравнивание открывающей кавычки
-		'OptAlign.oa_oquote' => $OptAlign,
+		'OptAlign.oa_oquote' => $optAlign,
 		//Оптическое выравнивание для пунктуации (скобка и запятая)
-		'OptAlign.oa_obracket_coma' => $OptAlign,
+		'OptAlign.oa_obracket_coma' => $optAlign,
 		//Inline стили или CSS
 		'OptAlign.layout' => 'style',
 		
 		//Простановка параграфов
-		'Text.paragraphs' => $Text_paragraphs,
+		'Text.paragraphs' => $text_paragraphs,
 		//Выделение ссылок из текста.
-		'Text.auto_links' => $Text_autoLinks,
+		'Text.auto_links' => $text_autoLinks,
 		//Выделение эл. почты из текста.
-		'Text.email' => $Text_autoLinks,
+		'Text.email' => $text_autoLinks,
 		//Простановка переносов строк
-		'Text.breakline' => $Text_paragraphs,
+		'Text.breakline' => $text_paragraphs,
 		//Удаление повторяющихся слов
 		'Text.no_repeat_words' => 'off',
 		
 		//Преобразовывать html-сущности в юникод
-		'Etc.unicode_convert' => $Etc_unicodeConvert
+		'Etc.unicode_convert' => $etc_unicodeConvert
 	));
 	
 	$ddTypograph->set_text($text);
-
+	
 	//Типографируем
 	return $ddTypograph->apply();
 }else{
