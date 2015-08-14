@@ -6,7 +6,7 @@
  * @desc Snippet for text typography.
  * 
  * @uses The modx.ddTools library 0.12.
- * @uses EMT lib 3.3 (contains in archive).
+ * @uses EMT lib 3.5 (contains in archive).
  * 
  * @param $text {string} - Text to correct. @required
  * @param $optAlign {0; 1} - Optical alignment (hanging punctuation). Default: 0.
@@ -53,12 +53,16 @@ if (strlen($text) > 4){
 		$optAlign = $noTags;
 		$text_paragraphs = $noTags;
 		$text_autoLinks = $noTags;
+		
+		$etc_nobr_to_nbsp = 'on';
 	}else{
 		$noTags = 'on';
 		
 		$optAlign = isset($optAlign) && $optAlign == 1 ? 'on' : 'off';
 		$text_paragraphs = isset($text_paragraphs) && $text_paragraphs == 1 ? 'on' : 'off';
 		$text_autoLinks = isset($text_autoLinks) && $text_autoLinks == 1 ? 'on' : 'off';
+		
+		$etc_nobr_to_nbsp = 'off';
 	}
 	
 	$etc_unicodeConvert = isset($etc_unicodeConvert) && $etc_unicodeConvert == 0 ? 'off' : 'on';
@@ -81,11 +85,15 @@ if (strlen($text) > 4){
 		//Привязка союзов и предлогов к предыдущим словам в случае конца предложения
 		'Nobr.nbsp_in_the_end' => 'on',
 		//Объединение в неразрывные конструкции номеров телефонов TODO: работает плоховато (в +7 777 777 77 77 ставит неразнывные пробелы только в двух первых случаях), обсудить с Евгением.
-		'Nobr.phone_builder' => 'on',
+		'Nobr.phone_builder' => $noTags,
+		//Дополнительный формат номеров телефонов («+7(123)1234567» → «+7 123 123-45-67»)
+		'Nobr.phone_builder_v2' => $noTags,
 		//Объединение IP-адресов.
 		'Nobr.ip_address' => 'off',
 		//Привязка инициалов к фамилиям
 		'Nobr.spaces_nobr_in_surname_abbr' => $noTags,
+		//Расстановка точек у инициалов («Иванов И И» | «Иванов ИИ» → «Иванов И. И.»)
+		'Nobr.dots_for_surname_abbr' => 'on',
 		//Привязка градусов к числу TODO: Не работает (по крайней мере, не удалось увидеть работу).
 		'Nobr.nbsp_celcius' => 'on',
 		//Обрамление пятисимвольных слов разделенных дефисом в неразрывные блоки TODO: Не удалось понять, что это, как и когда работает.
@@ -187,6 +195,9 @@ if (strlen($text) > 4){
 		'OptAlign.oa_oquote' => $optAlign,
 		//Оптическое выравнивание для пунктуации (скобка и запятая)
 		'OptAlign.oa_obracket_coma' => $optAlign,
+		//TODO: Параметр не ясен
+		//Оптическое выравнивание кавычки
+		'OptAlign.oa_oquote_extra' => $optAlign,
 		//Inline стили или CSS
 		'OptAlign.layout' => 'style',
 		
@@ -202,7 +213,11 @@ if (strlen($text) > 4){
 		'Text.no_repeat_words' => 'off',
 		
 		//Преобразовывать html-сущности в юникод
-		'Etc.unicode_convert' => $etc_unicodeConvert
+		'Etc.unicode_convert' => $etc_unicodeConvert,
+		//Использовать символ «&nbsp;» вместо тегов для связывания
+		'Etc.nobr_to_nbsp' => $etc_nobr_to_nbsp,
+		//Разбиение числа на триады («10000» → «10&thinsp;000»)
+		'Etc.split_number_to_triads' => 'on'
 	));
 	
 	$ddTypograph->set_text($text);
