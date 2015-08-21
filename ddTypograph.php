@@ -48,15 +48,15 @@ if (strlen($text) > 4){
 	
 	//Если нельзя добавлять теги к тексту
 	if (isset($noTags) && $noTags == 1){
-		$noTags = 'off';
+// 		$noTags = 'off';
 		
-		$optAlign = $noTags;
-		$text_paragraphs = $noTags;
-		$text_autoLinks = $noTags;
+		$optAlign = 'off';
+		$text_paragraphs = 'off';
+		$text_autoLinks = 'off';
 		
 		$etc_nobr_to_nbsp = 'on';
 	}else{
-		$noTags = 'on';
+// 		$noTags = 'on';
 		
 		$optAlign = isset($optAlign) && $optAlign == 1 ? 'on' : 'off';
 		$text_paragraphs = isset($text_paragraphs) && $text_paragraphs == 1 ? 'on' : 'off';
@@ -86,14 +86,18 @@ if (strlen($text) > 4){
 		'Nobr.nbsp_in_the_end' => 'on',
 		//TODO: работает плоховато (в «+7 777 777 77 77» ставит неразнывные пробелы только в двух первых случаях), обсудить с Евгением
 		//Объединение в неразрывные конструкции номеров телефонов
-		'Nobr.phone_builder' => $noTags,
+// 		'Nobr.phone_builder' => $noTags,
+		'Nobr.phone_builder' => 'on',
 		//Дополнительный формат номеров телефонов («+7(123)1234567» → «+7 123 123-45-67»)
-		'Nobr.phone_builder_v2' => $noTags,
+// 		'Nobr.phone_builder_v2' => $noTags,
+		'Nobr.phone_builder_v2' => 'on',
 		//Объединение IP-адресов.
 		'Nobr.ip_address' => 'off',
 		//Привязка инициалов к фамилиям («Иванов И. И.» → «Иванов&nbsp;И.&nbsp;И.»)
-		'Nobr.spaces_nobr_in_surname_abbr' => $noTags,
+// 		'Nobr.spaces_nobr_in_surname_abbr' => $noTags,
+		'Nobr.spaces_nobr_in_surname_abbr' => 'on',
 		//Расстановка точек у инициалов («Иванов И И» | «Иванов ИИ» → «Иванов И. И.»)
+// 		'Nobr.dots_for_surname_abbr' => $noTags,
 		'Nobr.dots_for_surname_abbr' => 'on',
 		//TODO: Не работает (по крайней мере, не удалось увидеть работу)
 		//Привязка градусов к числу
@@ -102,7 +106,8 @@ if (strlen($text) > 4){
 		//Обрамление пятисимвольных слов разделенных дефисом в неразрывные блоки
 		'Nobr.hyphen_nowrap_in_small_words' => 'off',
 		//Отмена переноса слова с дефисом
-		'Nobr.hyphen_nowrap' => $noTags,
+// 		'Nobr.hyphen_nowrap' => $noTags,
+		'Nobr.hyphen_nowrap' => 'on',
 		//TODO: Тег «nobr» невалидный, а для «word-spacing» нет значения «nowrap», нужно использовать свойство «white-space».
 		//Использовать nowrap для неразрывных конструкций
 		'Nobr.nowrap' => 'on',
@@ -178,7 +183,8 @@ if (strlen($text) > 4){
 		//Форматирование денежных сокращений (расстановка пробелов и привязка названия валюты к числу)
 		'Abbr.nbsp_money_abbr' => 'on',
 		//Объединение сокращений «и т. д.», «и т. п.», «в т. ч.»
-		'Abbr.nobr_vtch_itd_itp' => $noTags,
+// 		'Abbr.nobr_vtch_itd_itp' => $noTags,
+		'Abbr.nobr_vtch_itd_itp' => 'on',
 		//Расстановка пробелов перед сокращениями «см.», «им.»
 		'Abbr.nobr_sm_im' => 'on',
 		//Расстановка пробелов перед сокращениями «гл.», «стр.», «рис.», «илл.», «ст.», «п.»
@@ -188,11 +194,13 @@ if (strlen($text) > 4){
 		//Расстановка пробелов перед сокращениями «dpi», «lpi»
 		'Abbr.nobr_abbreviation' => 'on',
 		//Объединение сокращений «P.S.», «P.P.S.»
-		'Abbr.ps_pps' => $noTags,
+// 		'Abbr.ps_pps' => $noTags,
+		'Abbr.ps_pps' => 'on',
 		//Привязка сокращений форм собственности к названиям организаций
 		'Abbr.nbsp_org_abbr' => 'on',
 		//Привязка аббревиатуры «ГОСТ» к номеру
-		'Abbr.nobr_gost' => $noTags,
+// 		'Abbr.nobr_gost' => $noTags,
+		'Abbr.nobr_gost' => 'on',
 		//Установка пробельных символов в сокращении вольт
 		'Abbr.nobr_before_unit_volt' => 'on',
 		//Замена символов и привязка сокращений в размерных величинах («м», «см», «м2», …)
