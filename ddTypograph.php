@@ -1,7 +1,7 @@
 <?php
 /**
  * ddTypograph.php
- * @version 2.2 (2014-05-25)
+ * @version 2.3 (2015-08-24)
  * 
  * @desc Snippet for text typography.
  * 
@@ -15,9 +15,9 @@
  * @param $etc_unicodeConvert {0 | 1} — Convert html entities into Unicode (“—” instead of “&mdash;” etc.). Default: 1.
  * @param $noTags {0 | 1} — Whether HTML element insertion is allowed or not. There are cases when using tags causes the text to be invalid, for example, using the snippet inside of an HTML attribute. Default: 0.
  * 
- * @link http://code.divandesign.biz/modx/ddtypograph/2.2
+ * @link http://code.divandesign.biz/modx/ddtypograph/2.3
  * 
- * @copyright 2014, DivanDesign
+ * @copyright 2015, DivanDesign
  * http://www.DivanDesign.biz
  */
 
