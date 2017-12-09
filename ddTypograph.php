@@ -5,6 +5,7 @@
  * 
  * @desc Snippet for text typography. The snippet doesn’t use third-party services, also it sends no requests. In other words, everything is performed on your server.
  * 
+ * @uses PHP >= 5.4.
  * @uses MODXEvo.libraries.ddTools >= 0.21 {@link http://code.divandesign.biz/modx/ddtools }.
  * @uses EMT lib 3.5 (contains in archive).
  * 
@@ -44,12 +45,12 @@ if (strlen($text) > 4){
 	//Для обратной совместимости
 	extract(ddTools::verifyRenamedParams(
 		$params,
-		array(
+		[
 			'optAlign' => 'OptAlign',
 			'text_paragraphs' => 'Text_paragraphs',
 			'text_autoLinks' => 'Text_autoLinks',
 			'etc_unicodeConvert' => 'Etc_unicodeConvert'
-		)
+		]
 	));
 	
 	//Если нельзя добавлять теги к тексту
@@ -76,7 +77,7 @@ if (strlen($text) > 4){
 	
 	$etc_unicodeConvert = isset($etc_unicodeConvert) && $etc_unicodeConvert == 0 ? 'off' : 'on';
 	
-	$ddTypograph->setup(array(
+	$ddTypograph->setup([
 		//Расстановка «кавычек-елочек» первого уровня
 		'Quote.quotes' => 'on',
 		//Внутренние кавычки-лапки
@@ -245,7 +246,7 @@ if (strlen($text) > 4){
 		'Etc.nobr_to_nbsp' => $etc_nobr_to_nbsp,
 		//Разбиение числа на триады («10000» → «10&thinsp;000»)
 		'Etc.split_number_to_triads' => 'on'
-	));
+	]);
 	
 	$ddTypograph->set_text($text);
 	
