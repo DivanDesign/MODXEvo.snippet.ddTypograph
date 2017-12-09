@@ -15,6 +15,7 @@
  * @param $text_autoLinks {0|1} — Marking links (including email ones). Default: 0.
  * @param $etc_unicodeConvert {0|1} — Convert html entities into Unicode (“—” instead of “&mdash;” etc.). Default: 1.
  * @param $noTags {0|1} — Whether HTML element insertion is allowed or not. There are cases when using tags causes the text to be invalid, for example, using the snippet inside of an HTML attribute. Default: 0.
+ * @param $excludeTags {string_commaSeparated} — HTML tags which content will be ignored by snippet. Default: 'notg'.
  * 
  * @link http://code.divandesign.biz/modx/ddtypograph/2.3
  * 
@@ -52,6 +53,34 @@ if (strlen($text) > 4){
 			'etc_unicodeConvert' => 'Etc_unicodeConvert'
 		]
 	));
+	
+	//Safe tags
+	$excludeTags = isset($excludeTags) ? strtolower($excludeTags) : 'notg';
+	$excludeTags = explode(',', $excludeTags);
+	
+	foreach ($excludeTags as $excludeTags_item){
+		$excludeTags_item = trim($excludeTags_item);
+		
+		//We don't need anything with default EMT tag
+		if ($excludeTags_item != 'notg'){
+			//Wrap <notg>
+			$text = str_ireplace(
+				[
+					//Tag start
+					'<'.$excludeTags_item,
+					//Tag end
+					'</'.$excludeTags_item.'>'
+				],
+				[
+					//Tag start
+					'<notg><'.$excludeTags_item,
+					//Tag end
+					'</'.$excludeTags_item.'></notg>'
+				],
+				$text
+			);
+		}
+	}
 	
 	//Если нельзя добавлять теги к тексту
 	if (
