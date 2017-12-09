@@ -1,7 +1,7 @@
 <?php
 /**
  * ddTypograph
- * @version 2.3 (2015-08-24)
+ * @version 2.4 (2017-12-09)
  * 
  * @desc Snippet for text typography. The snippet doesn’t use third-party services, also it sends no requests. In other words, everything is performed on your server.
  * 
@@ -17,9 +17,9 @@
  * @param $noTags {0|1} — Whether HTML element insertion is allowed or not. There are cases when using tags causes the text to be invalid, for example, using the snippet inside of an HTML attribute. Default: 0.
  * @param $excludeTags {string_commaSeparated} — HTML tags which content will be ignored by snippet. Default: 'notg,code'.
  * 
- * @link http://code.divandesign.biz/modx/ddtypograph/2.3
+ * @link http://code.divandesign.biz/modx/ddtypograph/2.4
  * 
- * @copyright 2010–2015 DivanDesign {@link http://www.DivanDesign.biz }
+ * @copyright 2010–2017 DivanDesign {@link http://www.DivanDesign.biz }
  */
 
 //Если есть что типографировать
