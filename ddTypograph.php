@@ -5,7 +5,7 @@
  * 
  * @desc Snippet for text typography. The snippet doesn’t use third-party services, also it sends no requests. In other words, everything is performed on your server.
  * 
- * @uses MODXEvo.libraries.ddTools >= 0.12 {@link http://code.divandesign.biz/modx/ddtools }.
+ * @uses MODXEvo.libraries.ddTools >= 0.21 {@link http://code.divandesign.biz/modx/ddtools }.
  * @uses EMT lib 3.5 (contains in archive).
  * 
  * @param $text {string} — Text to correct. @required
@@ -38,8 +38,8 @@ if (strlen($text) > 4){
 		$ddTypograph = new EMTypograph();
 	}
 	
-	//Подключаем modx.ddTools
-	require_once $modx->getConfig('base_path').'assets/snippets/ddTools/modx.ddtools.class.php';
+	//Include MODXEvo.libraries.ddTools
+	require_once $modx->getConfig('base_path').'assets/libs/ddTools/modx.ddtools.class.php';
 	
 	//Для обратной совместимости
 	extract(ddTools::verifyRenamedParams(
