@@ -1,24 +1,23 @@
 <?php
 /**
- * ddTypograph.php
+ * ddTypograph
  * @version 2.3 (2015-08-24)
  * 
- * @desc Snippet for text typography.
+ * @desc Snippet for text typography. The snippet doesn’t use third-party services, also it sends no requests. In other words, everything is performed on your server.
  * 
- * @uses The modx.ddTools library 0.12.
+ * @uses MODXEvo.libraries.ddTools >= 0.12 {@link http://code.divandesign.biz/modx/ddtools }.
  * @uses EMT lib 3.5 (contains in archive).
  * 
  * @param $text {string} — Text to correct. @required
- * @param $optAlign {0 | 1} — Optical alignment (hanging punctuation). Default: 0.
- * @param $text_paragraphs {0 | 1} — Section signs and line breaks insertion. Default: 0.
- * @param $text_autoLinks {0 | 1} — Marking links (including email ones). Default: 0.
- * @param $etc_unicodeConvert {0 | 1} — Convert html entities into Unicode (“—” instead of “&mdash;” etc.). Default: 1.
- * @param $noTags {0 | 1} — Whether HTML element insertion is allowed or not. There are cases when using tags causes the text to be invalid, for example, using the snippet inside of an HTML attribute. Default: 0.
+ * @param $optAlign {0|1} — Optical alignment (hanging punctuation). Default: 0.
+ * @param $text_paragraphs {0|1} — Section signs and line breaks insertion. Default: 0.
+ * @param $text_autoLinks {0|1} — Marking links (including email ones). Default: 0.
+ * @param $etc_unicodeConvert {0|1} — Convert html entities into Unicode (“—” instead of “&mdash;” etc.). Default: 1.
+ * @param $noTags {0|1} — Whether HTML element insertion is allowed or not. There are cases when using tags causes the text to be invalid, for example, using the snippet inside of an HTML attribute. Default: 0.
  * 
  * @link http://code.divandesign.biz/modx/ddtypograph/2.3
  * 
- * @copyright 2015, DivanDesign
- * http://www.DivanDesign.biz
+ * @copyright 2010–2015 DivanDesign {@link http://www.DivanDesign.biz }
  */
 
 //Если есть что типографировать
@@ -26,7 +25,11 @@ if (strlen($text) > 4){
 	global $ddTypograph;
 	
 	//Заменим кавычки, вставленные через спец. символы на обычные (а то не обрабатываются в библиотеке)
-	$text = str_replace('&#34;', '"', $text);
+	$text = str_replace(
+		'&#34;',
+		'"',
+		$text
+	);
 	
 	if (!isset($ddTypograph)){
 		//Подключаем EMT типограф
@@ -39,15 +42,21 @@ if (strlen($text) > 4){
 	require_once $modx->config['base_path'].'assets/snippets/ddTools/modx.ddtools.class.php';
 	
 	//Для обратной совместимости
-	extract(ddTools::verifyRenamedParams($params, array(
-		'optAlign' => 'OptAlign',
-		'text_paragraphs' => 'Text_paragraphs',
-		'text_autoLinks' => 'Text_autoLinks',
-		'etc_unicodeConvert' => 'Etc_unicodeConvert'
-	)));
+	extract(ddTools::verifyRenamedParams(
+		$params,
+		array(
+			'optAlign' => 'OptAlign',
+			'text_paragraphs' => 'Text_paragraphs',
+			'text_autoLinks' => 'Text_autoLinks',
+			'etc_unicodeConvert' => 'Etc_unicodeConvert'
+		)
+	));
 	
 	//Если нельзя добавлять теги к тексту
-	if (isset($noTags) && $noTags == 1){
+	if (
+		isset($noTags) &&
+		$noTags == 1
+	){
 // 		$noTags = 'off';
 		
 		$optAlign = 'off';
