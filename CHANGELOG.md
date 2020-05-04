@@ -1,6 +1,15 @@
 # (MODX)EvolutionCMS.snippets.ddTypograph changelog
 
 
+## Version 2.4.1 (2020-05-04)
+* \+ README.
+* \+ README_ru.
+* \+ CHANGELOG.
+* \+ CHANGELOG_ru.
+* \+ Composer.json.
+* \* Refactoring.
+
+
 ## Version 2.4 (2017-12-09)
 * \* Attention! PHP >= 5.4 is required.
 * \* Attention! (MODX)EvolutionCMS.libraries.ddTools >= 0.21 is required.

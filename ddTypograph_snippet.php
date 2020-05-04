@@ -1,13 +1,13 @@
 <?php
 /**
  * ddTypograph
- * @version 2.4 (2017-12-09)
+ * @version 2.4.1 (2020-05-04)
  * 
  * @see README.md
  * 
  * @link https://code.divandesign.biz/modx/ddtypograph
  * 
- * @copyright 2010–2017 DD Group {@link https://DivanDesign.biz }
+ * @copyright 2010–2020 DD Group {@link https://DivanDesign.biz }
  */
 
 //Если есть что типографировать
