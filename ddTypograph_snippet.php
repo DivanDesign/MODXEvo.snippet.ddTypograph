@@ -15,11 +15,11 @@
  * @param $text_autoLinks {0|1} — Marking links (including email ones). Default: 0.
  * @param $etc_unicodeConvert {0|1} — Convert html entities into Unicode (“—” instead of “&mdash;” etc.). Default: 1.
  * @param $noTags {0|1} — Whether HTML element insertion is allowed or not. There are cases when using tags causes the text to be invalid, for example, using the snippet inside of an HTML attribute. Default: 0.
- * @param $excludeTags {string_commaSeparated} — HTML tags which content will be ignored by snippet. Default: 'notg,code'.
+ * @param $excludeTags {stringCommaSeparated} — HTML tags which content will be ignored by snippet. Default: 'notg,code'.
  * 
- * @link http://code.divandesign.biz/modx/ddtypograph/2.4
+ * @link https://code.divandesign.biz/modx/ddtypograph
  * 
- * @copyright 2010–2017 DivanDesign {@link http://www.DivanDesign.biz }
+ * @copyright 2010–2017 DD Group {@link https://DivanDesign.biz }
  */
 
 //Если есть что типографировать
@@ -35,16 +35,22 @@ if (strlen($text) > 4){
 	
 	if (!isset($ddTypograph)){
 		//Подключаем EMT типограф
-		require_once $modx->getConfig('base_path').'assets/snippets/ddTypograph/EMT.php';
+		require_once(
+			$modx->getConfig('base_path') .
+			'assets/snippets/ddTypograph/EMT.php'
+		);
 		
 		$ddTypograph = new EMTypograph();
 	}
 	
-	//Include MODXEvo.libraries.ddTools
-	require_once $modx->getConfig('base_path').'assets/libs/ddTools/modx.ddtools.class.php';
+	//Include (MODX)EvolutionCMS.libraries.ddTools
+	require_once(
+		$modx->getConfig('base_path') .
+		'assets/libs/ddTools/modx.ddtools.class.php'
+	);
 	
 	//Для обратной совместимости
-	extract(ddTools::verifyRenamedParams(
+	extract(\ddTools::verifyRenamedParams(
 		$params,
 		[
 			'optAlign' => 'OptAlign',
@@ -55,10 +61,20 @@ if (strlen($text) > 4){
 	));
 	
 	//Safe tags
-	$excludeTags = isset($excludeTags) ? strtolower($excludeTags) : 'notg,code';
-	$excludeTags = explode(',', $excludeTags);
+	$excludeTags =
+		isset($excludeTags) ?
+		strtolower($excludeTags) :
+		'notg,code'
+	;
+	$excludeTags = explode(
+		',',
+		$excludeTags
+	);
 	
-	foreach ($excludeTags as $excludeTags_item){
+	foreach (
+		$excludeTags as
+		$excludeTags_item
+	){
 		$excludeTags_item = trim($excludeTags_item);
 		
 		//We don't need anything with default EMT tag
@@ -67,15 +83,15 @@ if (strlen($text) > 4){
 			$text = str_ireplace(
 				[
 					//Tag start
-					'<'.$excludeTags_item,
+					'<' . $excludeTags_item,
 					//Tag end
-					'</'.$excludeTags_item.'>'
+					'</' . $excludeTags_item . '>'
 				],
 				[
 					//Tag start
-					'<notg><'.$excludeTags_item,
+					'<notg><' . $excludeTags_item,
 					//Tag end
-					'</'.$excludeTags_item.'></notg>'
+					'</' . $excludeTags_item . '></notg>'
 				],
 				$text
 			);
@@ -97,14 +113,42 @@ if (strlen($text) > 4){
 	}else{
 // 		$noTags = 'on';
 		
-		$optAlign = isset($optAlign) && $optAlign == 1 ? 'on' : 'off';
-		$text_paragraphs = isset($text_paragraphs) && $text_paragraphs == 1 ? 'on' : 'off';
-		$text_autoLinks = isset($text_autoLinks) && $text_autoLinks == 1 ? 'on' : 'off';
+		$optAlign =
+			(
+				isset($optAlign) &&
+				$optAlign == 1
+			) ?
+			'on' :
+			'off'
+		;
+		$text_paragraphs =
+			(
+				isset($text_paragraphs) &&
+				$text_paragraphs == 1
+			) ?
+			'on' :
+			'off'
+		;
+		$text_autoLinks =
+			(
+				isset($text_autoLinks) &&
+				$text_autoLinks == 1
+			) ?
+			'on' :
+			'off'
+		;
 		
 		$etc_nobr_to_nbsp = 'off';
 	}
 	
-	$etc_unicodeConvert = isset($etc_unicodeConvert) && $etc_unicodeConvert == 0 ? 'off' : 'on';
+	$etc_unicodeConvert =
+		(
+			isset($etc_unicodeConvert) &&
+			$etc_unicodeConvert
+		) == 0 ?
+		'off' :
+		'on'
+	;
 	
 	$ddTypograph->setup([
 		//Расстановка «кавычек-елочек» первого уровня
