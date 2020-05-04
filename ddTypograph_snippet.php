@@ -3,19 +3,7 @@
  * ddTypograph
  * @version 2.4 (2017-12-09)
  * 
- * @desc Snippet for text typography. The snippet doesn’t use third-party services, also it sends no requests. In other words, everything is performed on your server.
- * 
- * @uses PHP >= 5.4.
- * @uses MODXEvo.libraries.ddTools >= 0.21 {@link http://code.divandesign.biz/modx/ddtools }.
- * @uses EMT lib 3.5 (contains in archive).
- * 
- * @param $text {string} — Text to correct. @required
- * @param $optAlign {0|1} — Optical alignment (hanging punctuation). Default: 0.
- * @param $text_paragraphs {0|1} — Section signs and line breaks insertion. Default: 0.
- * @param $text_autoLinks {0|1} — Marking links (including email ones). Default: 0.
- * @param $etc_unicodeConvert {0|1} — Convert html entities into Unicode (“—” instead of “&mdash;” etc.). Default: 1.
- * @param $noTags {0|1} — Whether HTML element insertion is allowed or not. There are cases when using tags causes the text to be invalid, for example, using the snippet inside of an HTML attribute. Default: 0.
- * @param $excludeTags {stringCommaSeparated} — HTML tags which content will be ignored by snippet. Default: 'notg,code'.
+ * @see README.md
  * 
  * @link https://code.divandesign.biz/modx/ddtypograph
  * 
