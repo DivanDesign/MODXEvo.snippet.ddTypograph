@@ -324,8 +324,8 @@ if (strlen($text) > 4){
 	$ddTypograph->set_text($text);
 	
 	//Типографируем
-	return $ddTypograph->apply();
-}else{
-	return $text;
+	$text = $ddTypograph->apply();
 }
+
+return $text;
 ?>
