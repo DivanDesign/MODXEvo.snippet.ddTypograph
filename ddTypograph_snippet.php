@@ -1,7 +1,7 @@
 <?php
 /**
  * ddTypograph
- * @version 2.4.1 (2020-05-04)
+ * @version 2.4.2 (2020-05-06)
  * 
  * @see README.md
  * 

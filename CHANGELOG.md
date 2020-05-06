@@ -1,6 +1,11 @@
 # (MODX)EvolutionCMS.snippets.ddTypograph changelog
 
 
+## Version 2.4.2 (2020-05-06)
+* \* Attention! (MODX)EvolutionCMS.libraries.ddTools >= 0.32 is required.
+* \* Compatibility with (MODX)EvolutionCMS.libraries.ddTools >= 0.32.
+
+
 ## Version 2.4.1 (2020-05-04)
 * \+ README.
 * \+ README_ru.
