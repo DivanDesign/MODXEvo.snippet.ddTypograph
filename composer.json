@@ -23,6 +23,6 @@
 	],
 	"require": {
 		"php": ">=5.4.0",
-		"dd/modxevo-library-ddtools": ">=0.21.0"
+		"dd/modxevo-library-ddtools": ">=0.32.0"
 	}
 }

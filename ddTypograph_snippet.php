@@ -38,15 +38,15 @@ if (strlen($text) > 4){
 	);
 	
 	//Для обратной совместимости
-	extract(\ddTools::verifyRenamedParams(
-		$params,
-		[
+	extract(\ddTools::verifyRenamedParams([
+		'params' => $params,
+		'compliance' => [
 			'optAlign' => 'OptAlign',
 			'text_paragraphs' => 'Text_paragraphs',
 			'text_autoLinks' => 'Text_autoLinks',
 			'etc_unicodeConvert' => 'Etc_unicodeConvert'
 		]
-	));
+	]));
 	
 	//Safe tags
 	$excludeTags =
