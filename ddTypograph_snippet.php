@@ -10,6 +10,19 @@
  * @copyright 2010–2020 DD Group {@link https://DivanDesign.biz }
  */
 
+//Include (MODX)EvolutionCMS.libraries.ddTools
+require_once(
+	$modx->getConfig('base_path') .
+	'assets/libs/ddTools/modx.ddtools.class.php'
+);
+
+//Include PHP.libraries.EMT
+require_once(
+	$modx->getConfig('base_path') .
+	'assets/snippets/ddTypograph/EMT.php'
+);
+
+
 //Renaming params with backward compatibility
 $params = \ddTools::verifyRenamedParams([
 	'params' => $params,
@@ -51,20 +64,8 @@ if (strlen($params->text) > 4){
 	);
 	
 	if (!isset($ddTypograph)){
-		//Подключаем EMT типограф
-		require_once(
-			$modx->getConfig('base_path') .
-			'assets/snippets/ddTypograph/EMT.php'
-		);
-		
 		$ddTypograph = new EMTypograph();
 	}
-	
-	//Include (MODX)EvolutionCMS.libraries.ddTools
-	require_once(
-		$modx->getConfig('base_path') .
-		'assets/libs/ddTools/modx.ddtools.class.php'
-	);
 	
 	//Safe tags
 	$params->excludeTags = explode(
