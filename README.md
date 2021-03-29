@@ -6,8 +6,8 @@ The snippet doesn’t use third-party services, also it sends no requests. In ot
 
 ## Requires
 
-* PHP >= 5.4
-* [(MODX)EvolutionCMS.libraries.ddTools](https://code.divandesign.biz/modx/ddtools) >= 0.32
+* PHP >= 5.6
+* [(MODX)EvolutionCMS.libraries.ddTools](https://code.divandesign.biz/modx/ddtools) >= 0.48.1
 * [PHP.libraries.EMT](http://mdash.ru) 3.5 (contains in archive)
 
 

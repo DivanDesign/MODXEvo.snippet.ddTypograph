@@ -10,15 +10,44 @@
  * @copyright 2010–2020 DD Group {@link https://DivanDesign.biz }
  */
 
+//Renaming params with backward compatibility
+$params = \ddTools::verifyRenamedParams([
+	'params' => $params,
+	'compliance' => [
+		'optAlign' => 'OptAlign',
+		'text_paragraphs' => 'Text_paragraphs',
+		'text_autoLinks' => 'Text_autoLinks',
+		'etc_unicodeConvert' => 'Etc_unicodeConvert'
+	],
+	'returnCorrectedOnly' => false
+]);
+
+//Defaults
+$params = \DDTools\ObjectTools::extend([
+	'objects' => [
+		(object) [
+			//Required
+			'text' => '',
+			'optAlign' => false,
+			'text_paragraphs' => false,
+			'text_autoLinks' => false,
+			'etc_unicodeConvert' => true,
+			'noTags' => false,
+			'excludeTags' => 'notg,code'
+		],
+		$params
+	]
+]);
+
 //Если есть что типографировать
-if (strlen($text) > 4){
+if (strlen($params->text) > 4){
 	global $ddTypograph;
 	
 	//Заменим кавычки, вставленные через спец. символы на обычные (а то не обрабатываются в библиотеке)
-	$text = str_replace(
+	$params->text = str_replace(
 		'&#34;',
 		'"',
-		$text
+		$params->text
 	);
 	
 	if (!isset($ddTypograph)){
@@ -37,30 +66,14 @@ if (strlen($text) > 4){
 		'assets/libs/ddTools/modx.ddtools.class.php'
 	);
 	
-	//Для обратной совместимости
-	extract(\ddTools::verifyRenamedParams([
-		'params' => $params,
-		'compliance' => [
-			'optAlign' => 'OptAlign',
-			'text_paragraphs' => 'Text_paragraphs',
-			'text_autoLinks' => 'Text_autoLinks',
-			'etc_unicodeConvert' => 'Etc_unicodeConvert'
-		]
-	]));
-	
 	//Safe tags
-	$excludeTags =
-		isset($excludeTags) ?
-		strtolower($excludeTags) :
-		'notg,code'
-	;
-	$excludeTags = explode(
+	$params->excludeTags = explode(
 		',',
-		$excludeTags
+		strtolower($params->excludeTags)
 	);
 	
 	foreach (
-		$excludeTags as
+		$params->excludeTags as
 		$excludeTags_item
 	){
 		$excludeTags_item = trim($excludeTags_item);
@@ -68,7 +81,7 @@ if (strlen($text) > 4){
 		//We don't need anything with default EMT tag
 		if ($excludeTags_item != 'notg'){
 			//Wrap <notg>
-			$text = str_ireplace(
+			$params->text = str_ireplace(
 				[
 					//Tag start
 					'<' . $excludeTags_item,
@@ -81,47 +94,35 @@ if (strlen($text) > 4){
 					//Tag end
 					'</' . $excludeTags_item . '></notg>'
 				],
-				$text
+				$params->text
 			);
 		}
 	}
 	
 	//Если нельзя добавлять теги к тексту
-	if (
-		isset($noTags) &&
-		$noTags == 1
-	){
+	if ($params->noTags){
 // 		$noTags = 'off';
 		
-		$optAlign = 'off';
-		$text_paragraphs = 'off';
-		$text_autoLinks = 'off';
+		$params->optAlign = 'off';
+		$params->text_paragraphs = 'off';
+		$params->text_autoLinks = 'off';
 		
 		$etc_nobr_to_nbsp = 'on';
 	}else{
 // 		$noTags = 'on';
 		
-		$optAlign =
-			(
-				isset($optAlign) &&
-				$optAlign == 1
-			) ?
+		$params->optAlign =
+			$params->optAlign ?
 			'on' :
 			'off'
 		;
-		$text_paragraphs =
-			(
-				isset($text_paragraphs) &&
-				$text_paragraphs == 1
-			) ?
+		$params->text_paragraphs =
+			$params->text_paragraphs ?
 			'on' :
 			'off'
 		;
-		$text_autoLinks =
-			(
-				isset($text_autoLinks) &&
-				$text_autoLinks == 1
-			) ?
+		$params->text_autoLinks =
+			$params->text_autoLinks ?
 			'on' :
 			'off'
 		;
@@ -129,13 +130,10 @@ if (strlen($text) > 4){
 		$etc_nobr_to_nbsp = 'off';
 	}
 	
-	$etc_unicodeConvert =
-		(
-			isset($etc_unicodeConvert) &&
-			$etc_unicodeConvert
-		) == 0 ?
-		'off' :
-		'on'
+	$params->etc_unicodeConvert =
+		$params->etc_unicodeConvert ?
+		'on' :
+		'off'
 	;
 	
 	$ddTypograph->setup([
@@ -281,39 +279,39 @@ if (strlen($text) > 4){
 		//Все настройки оптического выравнивания
 // 		'OptAlign.all' => 'off',
 		//Оптическое выравнивание открывающей кавычки
-		'OptAlign.oa_oquote' => $optAlign,
+		'OptAlign.oa_oquote' => $params->optAlign,
 		//Оптическое выравнивание для пунктуации (скобка и запятая)
-		'OptAlign.oa_obracket_coma' => $optAlign,
+		'OptAlign.oa_obracket_coma' => $params->optAlign,
 		//TODO: Параметр не ясен
 		//Оптическое выравнивание кавычки
-		'OptAlign.oa_oquote_extra' => $optAlign,
+		'OptAlign.oa_oquote_extra' => $params->optAlign,
 		//Inline стили или CSS-классы
 		'OptAlign.layout' => 'style',
 		
 		//Простановка параграфов
-		'Text.paragraphs' => $text_paragraphs,
+		'Text.paragraphs' => $params->text_paragraphs,
 		//Выделение ссылок из текста
-		'Text.auto_links' => $text_autoLinks,
+		'Text.auto_links' => $params->text_autoLinks,
 		//Выделение электронной почты из текста
-		'Text.email' => $text_autoLinks,
+		'Text.email' => $params->text_autoLinks,
 		//Простановка переносов строк
-		'Text.breakline' => $text_paragraphs,
+		'Text.breakline' => $params->text_paragraphs,
 		//Удаление повторяющихся слов
 		'Text.no_repeat_words' => 'off',
 		
 		//Преобразовывать html-сущности в юникод
-		'Etc.unicode_convert' => $etc_unicodeConvert,
+		'Etc.unicode_convert' => $params->etc_unicodeConvert,
 		//Использовать символ «&nbsp;» вместо тегов для связывания
 		'Etc.nobr_to_nbsp' => $etc_nobr_to_nbsp,
 		//Разбиение числа на триады («10000» → «10&thinsp;000»)
 		'Etc.split_number_to_triads' => 'on'
 	]);
 	
-	$ddTypograph->set_text($text);
+	$ddTypograph->set_text($params->text);
 	
 	//Типографируем
-	$text = $ddTypograph->apply();
+	$params->text = $ddTypograph->apply();
 }
 
-return $text;
+return $params->text;
 ?>
