@@ -1,13 +1,13 @@
 <?php
 /**
  * ddTypograph
- * @version 2.4.2 (2020-05-06)
+ * @version 2.5 (2021-03-29)
  * 
  * @see README.md
  * 
  * @link https://code.divandesign.biz/modx/ddtypograph
  * 
- * @copyright 2010–2020 DD Group {@link https://DivanDesign.biz }
+ * @copyright 2010–2021 DD Group {@link https://DivanDesign.biz }
  */
 
 //Include (MODX)EvolutionCMS.libraries.ddTools

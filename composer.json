@@ -1,7 +1,7 @@
 {
 	"name": "dd/evolutioncms-snippets-ddtypograph",
 	"type": "modxevo-snippet",
-	"version": "2.4.2",
+	"version": "2.5.0",
 	"description": "Snippet for text typography. The snippet doesn't use third-party services, also it sends no requests. In other words, everything is performed on your server.",
 	"keywords": [
 		"modx",
