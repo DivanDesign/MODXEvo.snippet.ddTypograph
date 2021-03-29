@@ -1,6 +1,18 @@
 # (MODX)EvolutionCMS.snippets.ddTypograph changelog
 
 
+## Version 2.5 (2021-03-29)
+* \* Внимание! Требуется PHP >= 5.6.
+* \* Внимание! Требуется (MODX)EvolutionCMS.libraries.ddTools >= 0.48.1.
+* \+ Запустить сниппет без DB и eval можно через `\DDTools\Snippet::runSnippet` (см. примеры в README).
+* \+ `\ddTypograph\Snippet`: Новый класс. Весь код сниппета перенесён туда.
+* \+ README → Ссылки.
+* \* Composer.json:
+	* \+ `homepage`
+	* \+ `authors`.
+	* \* `require` → `dd/evolutioncms-libraries-ddtools`: Переименовано из `dd/modxevo-library-ddtools`.
+
+
 ## Версия 2.4.2 (2020-05-06)
 * \* Внимание! Требуется (MODX)EvolutionCMS.libraries.ddTools >= 0.32.
 * \* Совместимость с (MODX)EvolutionCMS.libraries.ddTools >= 0.32.

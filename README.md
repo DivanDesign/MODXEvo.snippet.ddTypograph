@@ -6,8 +6,8 @@ The snippet doesn’t use third-party services, also it sends no requests. In ot
 
 ## Requires
 
-* PHP >= 5.4
-* [(MODX)EvolutionCMS.libraries.ddTools](https://code.divandesign.biz/modx/ddtools) >= 0.32
+* PHP >= 5.6
+* [(MODX)EvolutionCMS.libraries.ddTools](https://code.divandesign.biz/modx/ddtools) >= 0.48.1
 * [PHP.libraries.EMT](http://mdash.ru) 3.5 (contains in archive)
 
 
@@ -20,7 +20,7 @@ The snippet doesn’t use third-party services, also it sends no requests. In ot
 #### 1. Elements → Snippets: Create a new snippet with the following data
 
 1. Snippet name: `ddTypograph`.
-2. Description: `<b>2.4.2</b> Snippet for text typography. The snippet doesn’t use third-party services, also it sends no requests. In other words, everything is performed on your server.`.
+2. Description: `<b>2.5</b> Snippet for text typography. The snippet doesn’t use third-party services, also it sends no requests. In other words, everything is performed on your server.`.
 3. Category: `Core`.
 4. Parse DocBlock: `no`.
 5. Snippet code (php): Insert content of the `ddTypograph_snippet.php` file from the archive.
@@ -121,7 +121,38 @@ The snippet doesn’t use third-party services, also it sends no requests. In ot
 ```
 
 
-## [Home page →](https://code.divandesign.biz/modx/ddtypograph)
+#### Run the snippet through `\DDTools\Snippet::runSnippet` without DB and eval
+
+```php
+\DDTools\Snippet::runSnippet([
+	'name' => 'ddTypograph',
+	'params' => [
+		'text' => "
+			There's nothing you can do that can't be done
+			Nothing you can sing that can't be sung
+			
+			https://en.wikipedia.org/wiki/The_Beatles
+		",
+		'text_paragraphs' => true,
+		'text_autoLinks' => true
+	]
+]);
+```
+
+Returns:
+
+```
+<p>There’s nothing you can do&nbsp;that can’t be&nbsp;done<br>
+Nothing you can sing that can’t be&nbsp;sung</p>
+<p><a href="https://en.wikipedia.org/wiki/The_Beatles">en.wikipedia.org/wiki/The_Beatles</a></p>
+```
+
+
+## Links
+
+* [Home page](https://code.divandesign.biz/modx/ddtypograph)
+* [Telegram chat](https://t.me/dd_code)
+* [Packagist](https://packagist.org/packages/dd/evolutioncms-snippets-ddtypograph)
 
 
 <link rel="stylesheet" type="text/css" href="https://DivanDesign.ru/assets/files/ddMarkdown.css" />
