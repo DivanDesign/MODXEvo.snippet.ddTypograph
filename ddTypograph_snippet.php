@@ -52,15 +52,19 @@ $params = \DDTools\ObjectTools::extend([
 	]
 ]);
 
+
+$snippetResult = $params->text;
+
+
 //Если есть что типографировать
-if (strlen($params->text) > 4){
+if (strlen($snippetResult) > 4){
 	global $ddTypograph;
 	
 	//Заменим кавычки, вставленные через спец. символы на обычные (а то не обрабатываются в библиотеке)
-	$params->text = str_replace(
+	$snippetResult = str_replace(
 		'&#34;',
 		'"',
-		$params->text
+		$snippetResult
 	);
 	
 	if (!isset($ddTypograph)){
@@ -82,7 +86,7 @@ if (strlen($params->text) > 4){
 		//We don't need anything with default EMT tag
 		if ($excludeTags_item != 'notg'){
 			//Wrap <notg>
-			$params->text = str_ireplace(
+			$snippetResult = str_ireplace(
 				[
 					//Tag start
 					'<' . $excludeTags_item,
@@ -95,7 +99,7 @@ if (strlen($params->text) > 4){
 					//Tag end
 					'</' . $excludeTags_item . '></notg>'
 				],
-				$params->text
+				$snippetResult
 			);
 		}
 	}
@@ -308,11 +312,11 @@ if (strlen($params->text) > 4){
 		'Etc.split_number_to_triads' => 'on'
 	]);
 	
-	$ddTypograph->set_text($params->text);
+	$ddTypograph->set_text($snippetResult);
 	
 	//Типографируем
-	$params->text = $ddTypograph->apply();
+	$snippetResult = $ddTypograph->apply();
 }
 
-return $params->text;
+return $snippetResult;
 ?>
