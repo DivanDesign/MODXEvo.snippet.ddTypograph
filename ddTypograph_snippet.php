@@ -52,6 +52,11 @@ $params = \DDTools\ObjectTools::extend([
 	]
 ]);
 
+$params->excludeTags = explode(
+	',',
+	strtolower($params->excludeTags)
+);
+
 
 $snippetResult = $params->text;
 
@@ -72,11 +77,6 @@ if (strlen($snippetResult) > 4){
 	}
 	
 	//Safe tags
-	$params->excludeTags = explode(
-		',',
-		strtolower($params->excludeTags)
-	);
-	
 	foreach (
 		$params->excludeTags as
 		$excludeTags_item
