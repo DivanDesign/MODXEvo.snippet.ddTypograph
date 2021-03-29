@@ -120,7 +120,11 @@
 ```
 
 
-## [Home page →](https://code.divandesign.biz/modx/ddtypograph)
+## Ссылки
+
+* [Home page](https://code.divandesign.ru/modx/ddtypograph)
+* [Telegram chat](https://t.me/dd_code)
+* [Packagist](https://packagist.org/packages/dd/evolutioncms-snippets-ddtypograph)
 
 
 <link rel="stylesheet" type="text/css" href="https://DivanDesign.ru/assets/files/ddMarkdown.css" />

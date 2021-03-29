@@ -121,7 +121,11 @@ The snippet doesn’t use third-party services, also it sends no requests. In ot
 ```
 
 
-## [Home page →](https://code.divandesign.biz/modx/ddtypograph)
+## Links
+
+* [Home page](https://code.divandesign.biz/modx/ddtypograph)
+* [Telegram chat](https://t.me/dd_code)
+* [Packagist](https://packagist.org/packages/dd/evolutioncms-snippets-ddtypograph)
 
 
 <link rel="stylesheet" type="text/css" href="https://DivanDesign.ru/assets/files/ddMarkdown.css" />
