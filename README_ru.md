@@ -120,6 +120,33 @@
 ```
 
 
+#### Запустить сниппет без DB и eval через `\DDTools\Snippet::runSnippet`
+
+```php
+\DDTools\Snippet::runSnippet([
+	'name' => 'ddTypograph',
+	'params' => [
+		'text' => "
+			There's nothing you can do that can't be done
+			Nothing you can sing that can't be sung
+			
+			https://ru.wikipedia.org/wiki/The_Beatles
+		",
+		'text_paragraphs' => true,
+		'text_autoLinks' => true
+	]
+]);
+```
+
+Вернёт:
+
+```
+<p>There’s nothing you can do&nbsp;that can’t be&nbsp;done<br>
+Nothing you can sing that can’t be&nbsp;sung</p>
+<p><a href="https://en.wikipedia.org/wiki/The_Beatles">en.wikipedia.org/wiki/The_Beatles</a></p>
+```
+
+
 ## Ссылки
 
 * [Home page](https://code.divandesign.ru/modx/ddtypograph)

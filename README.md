@@ -121,6 +121,33 @@ The snippet doesn’t use third-party services, also it sends no requests. In ot
 ```
 
 
+#### Run the snippet through `\DDTools\Snippet::runSnippet` without DB and eval
+
+```php
+\DDTools\Snippet::runSnippet([
+	'name' => 'ddTypograph',
+	'params' => [
+		'text' => "
+			There's nothing you can do that can't be done
+			Nothing you can sing that can't be sung
+			
+			https://en.wikipedia.org/wiki/The_Beatles
+		",
+		'text_paragraphs' => true,
+		'text_autoLinks' => true
+	]
+]);
+```
+
+Returns:
+
+```
+<p>There’s nothing you can do&nbsp;that can’t be&nbsp;done<br>
+Nothing you can sing that can’t be&nbsp;sung</p>
+<p><a href="https://en.wikipedia.org/wiki/The_Beatles">en.wikipedia.org/wiki/The_Beatles</a></p>
+```
+
+
 ## Links
 
 * [Home page](https://code.divandesign.biz/modx/ddtypograph)
